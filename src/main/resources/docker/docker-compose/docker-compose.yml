@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin-user
+      MONGO_INITDB_ROOT_PASSWORD: admin-pwd
+      MONGO_INITDB_DATABASE:  admin
+    volumes:
+      - //projects/spring-mongo/src/main/resources/:/mnt
+      - //projects/spring-mongo/src/main/resources/docker/scripts/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+    ports:
+      - "27017:27017"
+  mongo-express:
+    image: mongo-express
+    container_name: mongo-manager
+    restart: always
+    ports:
+    - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: admin-user
+      ME_CONFIG_MONGODB_ADMINPASSWORD: admin-pwd

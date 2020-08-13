@@ -1,0 +1,1 @@
+mkdir -p /home/mongodb/.dbshell
