@@ -5,3 +5,10 @@ spring:
     user:
       name: root
       password: root
+  data:
+    mongodb:
+      database: mongo-spring
+      host: 192.168.99.109
+      password: root
+      port: 27017
+      username: root
