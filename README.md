@@ -42,4 +42,4 @@
 
 ### Ветка : user-service-repo
 
-Описываем взаимодействие UserDetailsService с репоизиторием Mongo. Используем Spring Data Jpa.
+Описываем взаимодействие UserDetailsService с репозиторием Mongo. Используем Spring Data Jpa.
