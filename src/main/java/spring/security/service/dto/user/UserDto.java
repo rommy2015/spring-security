@@ -8,7 +8,6 @@ import java.util.Objects;
 
 public class UserDto {
 
-
     private ObjectId id;
 
     private String username;

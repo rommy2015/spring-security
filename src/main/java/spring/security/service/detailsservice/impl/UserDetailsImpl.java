@@ -3,15 +3,12 @@ package spring.security.service.detailsservice.impl;
 import org.bson.types.ObjectId;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Service;
 import spring.security.dao.domain.Role;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
-
-@Service
 public class UserDetailsImpl implements UserDetails {
 
     private ObjectId id;
