@@ -43,3 +43,7 @@
 ### Ветка : user-service-repo
 
  Описываем взаимодействие UserDetailsService с репозиторием Mongo. Используем Spring Data Jpa.
+
+## 5. Как настроить свою форму Login в Spring Security.
+
+### Ветка : form-login-security
