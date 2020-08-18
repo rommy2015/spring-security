@@ -6,8 +6,11 @@ import org.springframework.stereotype.Service;
 import spring.security.dao.domain.User;
 import spring.security.dao.repository.UserRepository;
 import spring.security.service.dto.user.UserDto;
+import spring.security.service.exceptions.ForbiddenException;
 import spring.security.service.mapper.user.UserMapper;
 import spring.security.service.save.user.UserServiceSave;
+
+import java.util.Optional;
 
 @Service
 public class UserServiceSaveImpl implements UserServiceSave {
@@ -28,9 +31,11 @@ public class UserServiceSaveImpl implements UserServiceSave {
     }
 
     @Override
-    public void saveUser(UserDto userDto) {
+    public void saveUser(UserDto userDto) throws ForbiddenException {
 
         User user = this.mapper.toEntity(userDto);
+
+       if (isContainUser(user)) throw new  ForbiddenException("Пользователь с таким именем уже существует");
 
         String password = user.getPassword();
         String encodePassword = this.passwordEncoder.encode(password);
@@ -38,7 +43,15 @@ public class UserServiceSaveImpl implements UserServiceSave {
         user.setPassword(encodePassword);
 
         this.repository.save(user);
+
     }
 
+    private boolean isContainUser(User user){
+
+        Optional<User> byUsername = this.repository.findByUsername(user.getUsername());
+
+      return   byUsername.isPresent();
+
+    }
 
 }

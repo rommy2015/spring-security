@@ -31,14 +31,17 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         Optional<User> byUsername = repository.findByUsername(username);
-        UserDetails userDetails = getUserDetails(byUsername);
+
+        User user = byUsername.orElseThrow(() ->
+                new UsernameNotFoundException("User nof found."));
+
+        UserDetails userDetails = getUserDetails(user);
 
         return userDetails;
     }
 
-    private UserDetails getUserDetails (Optional<User> byUsername){
+    private UserDetails getUserDetails (User user){
 
-        User user = byUsername.orElse(new User());
         UserDto userDto = mapper.toDto(user);
 
         return UserDetailsImpl.newBuilder()

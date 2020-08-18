@@ -40,4 +40,5 @@ public class UserMongoTemplate {
         template.save(user);
     }
 
+
 }
