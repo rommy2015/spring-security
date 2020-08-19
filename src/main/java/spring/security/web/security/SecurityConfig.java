@@ -38,7 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 /*Все остальные запросы, должны быть от пользователя, который прошел аутентификацию*/
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().permitAll() /*страница для ввода данных учетной записи, открыта для всех*/
+                .formLogin().loginPage("/loginCustom").permitAll() /*страница для ввода данных учетной записи, открыта для всех*/
                 .and()
                 .logout().permitAll();/*страница для выхода из сеанса, открыта для всех*/
 
