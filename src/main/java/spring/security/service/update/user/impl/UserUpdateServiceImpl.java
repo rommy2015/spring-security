@@ -54,10 +54,9 @@ public class UserUpdateServiceImpl implements UserUpdateService {
 
         User user = mapper.toEntity(userDto);
 
+        userRepository.save(user);
         /**
          * это вызывает ошибку, если запись с такими данными уже есть.
          */
-        userRepository.insert(user);
-
     }
 }
