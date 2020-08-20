@@ -46,7 +46,7 @@ class UserServiceSaveTest {
                 .build();
 
         try {
-            if (userByName.getUsername() != null)
+            if (userByName.getUsername() == null)
                 serviceSave.saveUser(userDto);
         } catch (ForbiddenException e) {
 

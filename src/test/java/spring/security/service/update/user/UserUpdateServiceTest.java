@@ -28,7 +28,7 @@ class UserUpdateServiceTest {
 
         UserDto user = readService.getDataOfUserByName("user");
 
-        user.setAccountNonLocked(false);
+        user.setAccountNonLocked(true);
 
         long resultOfAccountLocked = 0L;
 
@@ -48,8 +48,8 @@ class UserUpdateServiceTest {
         user.setAccountNonLocked(true);
 
         List<Role> authorities = user.getAuthorities();
-        authorities.add(Role.ADMIN);
-        user.setAuthorities(authorities);
+        //authorities.add(Role.ADMIN);
+       // user.setAuthorities(authorities);
 
 
         if(user.getUsername() != null)

@@ -3,16 +3,16 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<#--    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css">
 
-    <link rel="stylesheet" href="css/bootstrap-theme.min.css">-->
+    <link type="text/css" rel="stylesheet" href="css/bootstrap-theme.min.css">
 
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
-          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <#--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+              integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <!-- Optional theme &ndash;&gt;
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+              integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">-->
 </head>
 <body>
 <div class="container">
@@ -20,15 +20,22 @@
         <div class="col-md-6 col-md-offset-3">
             <div class="panel panel-default" style="margin-top:45px">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Login with Username and Password</h3>
+                    <h3 class="panel-title"
+                        style=
+                        "font-style:italic;
+                        font-family: Cambria;
+                        font-size: 27px;
+                        color:#0069d9;">
+                        Login with Username and Password
+                    </h3>
                 </div>
                 <div class="panel-body">
-                <#if logout>
-                    <div class="alert alert-info" role="alert">You've been logged out successfully.</div>
-                </#if>
-                <#if error>
-                    <div class="alert alert-danger" role="alert">Invalid Username or Password!</div>
-                </#if>
+                    <#if logout>
+                        <div class="alert alert-info" role="alert">You've been logged out successfully.</div>
+                    </#if>
+                    <#if error>
+                        <div class="alert alert-danger" role="alert">Invalid Username or Password!</div>
+                    </#if>
 
                     <form method="post">
                         <input name="${_csrf.parameterName}" value="${_csrf.token}" type="hidden">
