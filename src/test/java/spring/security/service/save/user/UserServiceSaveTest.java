@@ -22,18 +22,86 @@ class UserServiceSaveTest {
     @Autowired
     private UserReadService readService;
 
+    @Test
+    void saveUserUser() {
+
+        String userNameUser = "user";
+        String passwordUser = "user";
+
+        UserDto userByNameForUser =
+                readService.getDataOfUserByName(userNameUser);
+
+        ImmutableList<Role> roleImmutableListForUser = ImmutableList.of(Role.USER);
+
+        UserDto userDtoUser = prepareDataOfUser(roleImmutableListForUser, userNameUser, passwordUser);
+
+        try {
+            if (userByNameForUser.getUsername() == null)
+                serviceSave.saveUser(userDtoUser);
+        } catch (ForbiddenException e) {
+
+            ForbiddenException bufferException =  e;
+
+            Class<? extends ForbiddenException> aClass = bufferException.getClass();
+            Assert.assertEquals(ForbiddenException.class, aClass);
+        }
+
+    }
 
     @Test
-    void saveUser() {
+    void saveUserAdmin(){
 
-        String userName = "user";
+        String userNameAdmin = "admin";
+        String passwordAdmin = "admin";
 
-        String password = "user";
+        UserDto userByNameForAdmin =
+                readService.getDataOfUserByName(userNameAdmin);
 
-        UserDto userByName =
-                readService.getDataOfUserByName(userName);
+        ImmutableList<Role> roleImmutableListForAdmin = ImmutableList.of(Role.ADMIN);
 
-        ImmutableList<Role> roleImmutableList = ImmutableList.of(Role.USER);
+        UserDto userDtoAdmin = prepareDataOfUser(roleImmutableListForAdmin, userNameAdmin, passwordAdmin);
+
+        try {
+            if (userByNameForAdmin.getUsername() == null)
+                serviceSave.saveUser(userDtoAdmin);
+        } catch (ForbiddenException e) {
+
+            ForbiddenException bufferException =  e;
+
+            Class<? extends ForbiddenException> aClass = bufferException.getClass();
+            Assert.assertEquals(ForbiddenException.class, aClass);
+        }
+    }
+
+    @Test
+    void saveUserPowerUser(){
+
+        String userNamePowerUser = "powerUser";
+        String passwordPowerUser = "powerUser";
+
+        UserDto userByNameForPowerUser =
+                readService.getDataOfUserByName(userNamePowerUser);
+
+        ImmutableList<Role> roleImmutableListForPowerUser = ImmutableList.of(Role.POWER_USER);
+
+        UserDto userDtoPowerUser = prepareDataOfUser(roleImmutableListForPowerUser, userNamePowerUser, passwordPowerUser);
+
+        try {
+            if (userByNameForPowerUser.getUsername() == null)
+                serviceSave.saveUser(userDtoPowerUser);
+        } catch (ForbiddenException e) {
+
+            ForbiddenException bufferException =  e;
+
+            Class<? extends ForbiddenException> aClass = bufferException.getClass();
+            Assert.assertEquals(ForbiddenException.class, aClass);
+        }
+    }
+
+
+
+
+    private UserDto prepareDataOfUser( ImmutableList<Role> roleImmutableList, String userName, String password){
 
         UserDto userDto = UserDto.newBuilder()
                 .username(userName)
@@ -45,15 +113,6 @@ class UserServiceSaveTest {
                 .enabled(true)
                 .build();
 
-        try {
-            if (userByName.getUsername() == null)
-                serviceSave.saveUser(userDto);
-        } catch (ForbiddenException e) {
-
-            ForbiddenException bufferException =  e;
-
-            Class<? extends ForbiddenException> aClass = bufferException.getClass();
-            Assert.assertEquals(ForbiddenException.class, aClass);
-        }
+        return userDto;
     }
 }

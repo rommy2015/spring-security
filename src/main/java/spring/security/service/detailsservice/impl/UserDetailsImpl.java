@@ -30,6 +30,10 @@ public class UserDetailsImpl implements UserDetails {
     public UserDetailsImpl() {
     }
 
+    public ObjectId getId() {
+        return id;
+    }
+
     private UserDetailsImpl(Builder builder) {
         setId(builder.id);
         setUsername(builder.username);

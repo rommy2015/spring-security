@@ -17,8 +17,13 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h1 class="page-header">Hello World!</h1>
-            <h2>You are logged with username: ${username} and with roles: ${roles}</h2>
+            <h1 class="page-header" style="padding-bottom: 5px; padding-top: 5px">Hello!</h1>
+            <h2><p style="color: #e83e8c">
+                    You are logged with username:
+                    <span style="padding-left: 10px; color: #6f42c1"> ${username}</span></p>
+                <p style="color: #e83e8c"> and with roles:
+                    <span style="padding-left: 10px; color: #6f42c1">  ${roles}  </span> </p>
+            </h2>
         </div>
     </div>
 </div>
