@@ -57,7 +57,7 @@ class UserServiceSaveTest {
         UserDto userByNameForAdmin =
                 readService.getDataOfUserByName(userNameAdmin);
 
-        ImmutableList<Role> roleImmutableListForAdmin = ImmutableList.of(Role.ADMIN);
+        ImmutableList<Role> roleImmutableListForAdmin = ImmutableList.of(Role.ADMIN, Role.POWER_USER);
 
         UserDto userDtoAdmin = prepareDataOfUser(roleImmutableListForAdmin, userNameAdmin, passwordAdmin);
 

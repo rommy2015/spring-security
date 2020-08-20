@@ -5,13 +5,13 @@ import org.springframework.lang.NonNull;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import spring.security.dao.domain.User;
 
 import java.util.Collection;
 
 public class UserAuthentication implements Authentication {
 
     private final UserDetails user;
+
     private boolean authenticated = true;
 
     public UserAuthentication(@NonNull UserDetails user) {

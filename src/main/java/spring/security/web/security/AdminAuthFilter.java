@@ -2,13 +2,12 @@ package spring.security.web.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;
-import spring.security.dao.domain.User;
-import spring.security.service.detailsservice.impl.UserDetailsImpl;
 import spring.security.web.security.dto.UserAuthentication;
 
 import javax.annotation.PostConstruct;
@@ -21,7 +20,6 @@ import java.io.IOException;
 @Component
 public class AdminAuthFilter extends GenericFilterBean {
 
-
     private UserDetailsService userService;
 
     @Autowired
@@ -29,20 +27,26 @@ public class AdminAuthFilter extends GenericFilterBean {
         this.userService = userService;
     }
 
-    private UserDetails admin;
+    private UserDetails userDetails;
 
     @PostConstruct
     public void init() {
 
-       this.admin = userService.loadUserByUsername("admin");
+        this.userDetails = userService.loadUserByUsername("user");
 
     }
 
-
-
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        SecurityContextHolder.getContext().setAuthentication(new UserAuthentication(admin));
+    public void doFilter(ServletRequest servletRequest,
+                         ServletResponse servletResponse,
+                         FilterChain filterChain) throws IOException, ServletException {
+
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+
+        UserAuthentication userAuthentication = new UserAuthentication(userDetails);
+
+        securityContext.setAuthentication(userAuthentication);
+
         filterChain.doFilter(servletRequest, servletResponse);
     }
 }

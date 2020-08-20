@@ -42,17 +42,20 @@ class UserUpdateServiceTest {
     @Test
     void updateUser() {
 
-        UserDto user = readService.getDataOfUserByName("user");
-
-        user.setEnabled(true);
-        user.setAccountNonLocked(true);
-
-        List<Role> authorities = user.getAuthorities();
-        //authorities.add(Role.ADMIN);
-       // user.setAuthorities(authorities);
+        UserDto user = readService.getDataOfUserByName("admin");
+        List<Role> roleList = user.getAuthorities();
+       boolean isRolePowerUser = false;
 
 
-        if(user.getUsername() != null)
+        if(user.getUsername() != null){
+            isRolePowerUser = roleList.contains(Role.POWER_USER);
+        }
+
+        if (!isRolePowerUser) roleList.add(Role.POWER_USER);
+
+
+
+        if(user.getUsername() != null && !isRolePowerUser)
             userUpdateService.updateUser(user);
 
     }
