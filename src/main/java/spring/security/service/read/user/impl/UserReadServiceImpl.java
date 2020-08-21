@@ -1,9 +1,12 @@
 package spring.security.service.read.user.impl;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import spring.security.dao.domain.User;
 import spring.security.dao.repository.UserRepository;
+import spring.security.service.detailsservice.impl.UserDetailsImpl;
 import spring.security.service.dto.user.UserDto;
 import spring.security.service.mapper.user.UserMapper;
 import spring.security.service.read.user.UserReadService;
@@ -33,4 +36,16 @@ public class UserReadServiceImpl implements UserReadService {
 
         return userDto;
     }
+
+    @Override
+    public Optional<UserDetails> getUserById(ObjectId id) {
+
+        Optional<User> username = repository.findById(id);
+
+        UserDetails userDetails = (UserDetails) username.orElse(null);
+
+        return Optional.of(userDetails);
+    }
+
+
 }

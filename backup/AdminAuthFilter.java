@@ -1,4 +1,4 @@
-package spring.security.web.security;
+package spring.security.web.security.filtres;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -17,7 +17,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import java.io.IOException;
 
-@Component
 public class AdminAuthFilter extends GenericFilterBean {
 
     private UserDetailsService userService;

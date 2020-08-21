@@ -1,6 +1,8 @@
 package spring.security.service.detailsservice.impl;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -38,6 +40,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         UserDetails userDetails = getUserDetails(user);
 
         return userDetails;
+    }
+
+
+    public Optional<User> findById(@NonNull ObjectId id) {
+        return repository.findById(id);
     }
 
     private UserDetails getUserDetails (User user){

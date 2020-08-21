@@ -14,6 +14,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import spring.security.service.token.TokenAuthService;
+import spring.security.web.security.auth.SecurityContextHolderFacade;
+import spring.security.web.security.filtres.StatelessAuthFilter;
 
 
 @Configuration
@@ -24,20 +27,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private UserDetailsService userDetailsService;
 
-    private AdminAuthFilter adminAuthFilter;
+    private TokenAuthService tokenAuthService;
+
 
     @Autowired
     public SecurityConfig(@Qualifier("userDetailsServiceImpl") UserDetailsService userDetailsService,
-                          AdminAuthFilter adminAuthFilter) {
+                          TokenAuthService tokenAuthService) {
         this.userDetailsService = userDetailsService;
-        this.adminAuthFilter = adminAuthFilter;
+        this.tokenAuthService = tokenAuthService;
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
         http
-                .addFilterBefore(adminAuthFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new StatelessAuthFilter(tokenAuthService),
+                        UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests() /*все запросы должны проходить авторизацию*/
                 /*запросы, на адреса, совпдающие с представленным шаблоном, не будут авторизовываться*/
                 .antMatchers("/css/**", "/js/**").permitAll()
