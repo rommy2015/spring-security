@@ -7,7 +7,6 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.GenericFilterBean;
 import spring.security.service.token.TokenAuthService;
-import spring.security.web.security.auth.SecurityContextHolderFacade;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -22,8 +21,6 @@ import java.io.IOException;
  * время запуска приложения.
  */
 public class StatelessAuthFilter extends GenericFilterBean {
-
-    private SecurityContextHolderFacade securityContextHolderFacade;
 
     private TokenAuthService tokenAuthService;
 
@@ -62,16 +59,5 @@ public class StatelessAuthFilter extends GenericFilterBean {
     }
 }
 
-
-/*
-/*    private final TokenAuthService tokenAuthService;
-
-    public StatelessAuthFilter(@NonNull TokenAuthService tokenAuthService) {
-        this.tokenAuthService = tokenAuthService;
-    }
-     SecurityContextHolder.getContext().setAuthentication(
-         tokenAuthService.getAuthentication((HttpServletRequest) servletRequest).orElse(null));
-
-    */
 
 

@@ -3,13 +3,11 @@ package spring.security.service.token;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.lang.NonNull;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 import spring.security.service.read.user.UserReadService;
-import spring.security.service.yaml.YamlPropertySourceFactory;
 import spring.security.web.security.dto.UserAuthentication;
 
 import javax.servlet.http.HttpServletRequest;

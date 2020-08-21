@@ -2,6 +2,7 @@ package spring.security.service.token.impl;
 
 
 import com.google.common.io.BaseEncoding;
+import io.jsonwebtoken.*;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -12,7 +13,11 @@ import spring.security.service.yaml.YamlPropertySourceFactory;
 import javax.annotation.PostConstruct;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.Date;
 import java.util.Optional;
 
 @PropertySource(value = "classpath:application.yml",
@@ -26,7 +31,6 @@ public class TokenHandlerImpl implements TokenHandler {
     private String jwtKey;
 
     public TokenHandlerImpl() {
-        //String jwtKey = "jwtkey1234567890";
     }
 
     @PostConstruct
@@ -37,36 +41,40 @@ public class TokenHandlerImpl implements TokenHandler {
 
     @Override
     public Optional<ObjectId> extractUserId(String token) {
-        return Optional.empty();
-    }
 
-    @Override
-    public String generateAccessToken(ObjectId id, LocalDateTime expires) {
-        return null;
-    }
-
-}
-/*    public Optional<ObjectId> extractUserId1(@NonNull String token) {
         try {
-            Jws<Claims> claimsJws = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
+
+            JwtParser parser = Jwts.parser();
+            JwtParser parserSigningKey = parser.setSigningKey(secretKey);
+
+            Jws<Claims> claimsJws = parserSigningKey.parseClaimsJws(token);
+
             Claims body = claimsJws.getBody();
+
             return Optional
                     .ofNullable(body.getId())
                     .map(ObjectId::new);
 
         } catch (RuntimeException e) {
+
             return Optional.empty();
         }
-
     }
 
-    public String generateAccessToken1(@NonNull ObjectId id, @NonNull LocalDateTime expires) {
+    @Override
+    public String generateAccessToken(ObjectId id, LocalDateTime expires) {
+
+        ZoneId systemDefault = ZoneId.systemDefault();
+        ZonedDateTime zonedDateTime = expires.atZone(systemDefault);
+        Instant instant = zonedDateTime.toInstant();
+
+        Date fromLocalDateTime = Date.from(instant);
+
         return Jwts.builder()
                 .setId(id.toString())
-                .setExpiration(Date.from(expires.atZone(ZoneId.systemDefault()).toInstant()))
+                .setExpiration(fromLocalDateTime)
                 .signWith(SignatureAlgorithm.HS512, secretKey)
                 .compact();
-    }*/
+    }
 
-
-
+}
